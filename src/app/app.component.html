@@ -1,0 +1,44 @@
+<mat-card>
+	<p mat-card-title>Test file input with form field</p>
+
+	<mat-divider></mat-divider>
+
+	<mat-card-content>
+		<br><br>
+		<hello [name]="name"></hello>
+		<mat-form-field style="width: 100%;">
+			<mat-label>File matInput</mat-label>
+			<button mat-icon-button matPrefix (click)="f_input.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+			<input type="text" readonly matInput [formControl]="display" />
+			<input
+        type="file"
+        multiple
+        hidden
+        #f_input
+        (change)="handleFileInputChange(f_input.files)"
+      />
+			<mat-error>this field is required</mat-error>
+		</mat-form-field>
+		<br><br>
+	</mat-card-content>
+
+		<mat-divider></mat-divider>
+
+		<mat-card-actions align="end">
+			<button mat-stroked-button color="primary" [disabled]="display.invalid" (click)="handleSubmit()">
+      Save
+    </button>
+		</mat-card-actions>
+</mat-card>
+
+<mat-card *ngIf="file_list.length" style="margin-top: 16px;">
+	<mat-list>
+		<div mat-subheader>Submit Files ({{ file_list.length }})</div>
+		<mat-list-item *ngFor="let file of file_list">
+			<mat-icon mat-list-icon>insert_drive_file</mat-icon>
+			<div mat-line>{{ file }}</div>
+		</mat-list-item>
+	</mat-list>
+</mat-card>
